@@ -54,8 +54,6 @@
         </intent>
       </queries>
     </config-file>
-    
-    <preference name="AndroidLaunchMode" value="singleTask" />
 
     <framework src="build/android/SafariViewController-java18.gradle" custom="true"
       type="gradleReference" />
