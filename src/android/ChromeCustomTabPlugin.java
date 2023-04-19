@@ -88,6 +88,11 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
                 callbackContext.sendPluginResult(pluginResult);
                 return true;
             }
+            case "hide": {
+                this.hide();
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, true));
+                return true;
+            }
             case "getViewHandlerPackages": {
                 PluginResult pluginResult;
                 final JSONObject result = new JSONObject();
@@ -160,12 +165,16 @@ public class ChromeCustomTabPlugin extends CordovaPlugin{
 
         String packageName = CustomTabsHelper.getPackageNameToUse(cordova.getActivity());
         if ( packageName != null ) {
-           customTabsIntent.intent.setPackage(packageName);
+            customTabsIntent.intent.setPackage(packageName);
         }
 
         startCustomTabActivity(url, customTabsIntent.intent);
     }
 
+    private void hide() {
+        cordova.getActivity().startActivity(new Intent(cordova.getActivity(), cordova.getActivity().getClass()));
+    }
+    
     private void addTransition(CustomTabsIntent.Builder builder, String transition) {
         final String animType = "anim";
         switch (transition){
